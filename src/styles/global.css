@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Role-based typography */
+[data-role="parent"] {
+  font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+[data-role="student"] {
+  font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+[data-role="parent"] h1,
+[data-role="parent"] h2,
+[data-role="parent"] h3 {
+  font-family: "DM Serif Display", serif;
+}
+[data-role="student"] h1,
+[data-role="student"] h2,
+[data-role="student"] h3 {
+  font-family: "DM Serif Display", serif;
+}
+
+[data-role="therapist"] {
+  font-family: "Epilogue", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+[data-role="therapist"] h1,
+[data-role="therapist"] h2,
+[data-role="therapist"] h3 {
+  font-family: "Syne", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+[data-role="admin"] {
+  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+[data-role="admin"] h1,
+[data-role="admin"] h2,
+[data-role="admin"] h3 {
+  font-family: "Playfair Display", serif;
+}
+
+/* scrollbar (matches HTML refs) */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 4px;
+}
+

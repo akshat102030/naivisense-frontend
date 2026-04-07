@@ -1,0 +1,36 @@
+export const anomalies = [
+  {
+    id: 'a001',
+    childId: 'c001',
+    childName: 'Aryan Mehta',
+    type: 'tantrum_spike',
+    severity: 'critical',
+    title: 'Tantrum frequency spike',
+    description: '3× increase over baseline in the past 72 hours.',
+    detectedAt: '2025-03-30T09:15:00',
+    status: 'open',
+  },
+  {
+    id: 'a002',
+    childId: 'c003',
+    childName: 'Rohan Verma',
+    type: 'compliance_drop',
+    severity: 'warning',
+    title: 'Compliance score dropping',
+    description: 'Below expected trend for this therapy phase.',
+    detectedAt: '2025-03-29T15:00:00',
+    status: 'open',
+  },
+  {
+    id: 'a003',
+    childId: 'c001',
+    childName: 'Aryan Mehta',
+    type: 'feedback_mismatch',
+    severity: 'info',
+    title: 'Parent feedback mismatch',
+    description: 'Parent score significantly lower than therapist score for last session.',
+    detectedAt: '2025-03-28T12:00:00',
+    status: 'open',
+  },
+]
+
