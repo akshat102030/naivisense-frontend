@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { Avatar } from './Avatar.jsx'
@@ -121,10 +122,20 @@ ChildChip.propTypes = {
 }
 
 export function Sidebar({ navItems, role, user, child, accent }) {
+  const [isCompact, setIsCompact] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 768px)')
+    const onChange = (event) => setIsCompact(event.matches)
+    setIsCompact(media.matches)
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
+
   return (
     <aside
       style={{
-        width: 'var(--sidebar)',
+        width: 'var(--sidebar-current)',
         minHeight: '100vh',
         background: 'var(--bg2)',
         borderRight: '1px solid var(--border)',
@@ -136,32 +147,36 @@ export function Sidebar({ navItems, role, user, child, accent }) {
         zIndex: 100,
       }}
     >
-      <Logo role={role} />
-      {role !== 'admin' ? <ChildChip child={child} accent={accent} /> : null}
+      {!isCompact ? <Logo role={role} /> : null}
+      {!isCompact && role !== 'admin' ? <ChildChip child={child} accent={accent} /> : null}
 
-      <nav style={{ flex: 1, overflowY: 'auto', padding: '0 10px' }}>
+      <nav style={{ flex: 1, overflowY: 'auto', padding: isCompact ? '8px 8px 0' : '0 10px' }}>
         {navItems.map((section) => (
           <div key={section.section} style={{ marginTop: 10 }}>
-            <div
-              style={{
-                fontSize: 10,
-                color: 'var(--text3)',
-                letterSpacing: 0.8,
-                textTransform: 'uppercase',
-                padding: '4px 12px 8px',
-              }}
-            >
-              {section.section}
-            </div>
+            {!isCompact ? (
+              <div
+                style={{
+                  fontSize: 10,
+                  color: 'var(--text3)',
+                  letterSpacing: 0.8,
+                  textTransform: 'uppercase',
+                  padding: '4px 12px 8px',
+                }}
+              >
+                {section.section}
+              </div>
+            ) : null}
             {section.items.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
+                title={item.label}
                 style={({ isActive }) => ({
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 10,
-                  padding: '9px 12px',
+                  justifyContent: isCompact ? 'center' : 'flex-start',
+                  gap: isCompact ? 0 : 10,
+                  padding: isCompact ? '10px 8px' : '9px 12px',
                   borderRadius: 8,
                   fontSize: 13.5,
                   color: isActive ? accent : 'var(--text2)',
@@ -178,11 +193,15 @@ export function Sidebar({ navItems, role, user, child, accent }) {
                   marginBottom: 2,
                 })}
               >
-                <span style={{ opacity: 0.7 }}>{item.label}</span>
+                {isCompact ? (
+                  <span style={{ opacity: 0.9, fontWeight: 700 }}>{item.label.slice(0, 1)}</span>
+                ) : (
+                  <span style={{ opacity: 0.7 }}>{item.label}</span>
+                )}
                 {typeof item.badge === 'number' ? (
                   <span
                     style={{
-                      marginLeft: 'auto',
+                      marginLeft: isCompact ? 6 : 'auto',
                       fontSize: 10,
                       fontWeight: 700,
                       padding: '1px 6px',
@@ -224,15 +243,16 @@ export function Sidebar({ navItems, role, user, child, accent }) {
 
       <div
         style={{
-          padding: '14px 12px 0',
+          padding: isCompact ? '10px 8px 0' : '14px 12px 0',
           borderTop: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: isCompact ? 'center' : 'flex-start',
           gap: 10,
         }}
       >
         <Avatar name={user?.name ?? 'User'} variant={role} />
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1, minWidth: 0, display: isCompact ? 'none' : 'block' }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>
             {user?.name ?? '—'}
           </div>

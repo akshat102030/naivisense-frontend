@@ -49,5 +49,12 @@
 
   /* Sidebar */
   --sidebar: 260px;
+  --sidebar-current: var(--sidebar);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-current: 72px;
+  }
 }
 

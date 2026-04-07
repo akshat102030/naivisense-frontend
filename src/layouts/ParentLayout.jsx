@@ -47,7 +47,7 @@ export function ParentLayout() {
         child={selectedChild}
         accent="var(--accent)"
       />
-      <div style={{ flex: 1, marginLeft: 'var(--sidebar)' }}>
+      <div style={{ flex: 1, marginLeft: 'var(--sidebar-current)' }}>
         <Topbar title={pageTitle(pathname)} role="parent" />
         <div style={{ padding: 28 }}>
           <Outlet />

@@ -50,7 +50,7 @@ export function TherapistLayout() {
         child={selectedChild}
         accent="var(--accent)"
       />
-      <div style={{ flex: 1, marginLeft: 'var(--sidebar)' }}>
+      <div style={{ flex: 1, marginLeft: 'var(--sidebar-current)' }}>
         <Topbar title={pageTitle(pathname)} role="therapist" />
         <div style={{ padding: 24 }}>
           <Outlet />

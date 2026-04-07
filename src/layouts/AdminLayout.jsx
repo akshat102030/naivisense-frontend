@@ -48,7 +48,7 @@ export function AdminLayout() {
   return (
     <div data-role="admin" style={{ minHeight: '100vh', display: 'flex' }}>
       <Sidebar role="admin" navItems={navItems} user={user} accent="var(--accent)" />
-      <div style={{ flex: 1, marginLeft: 'var(--sidebar)' }}>
+      <div style={{ flex: 1, marginLeft: 'var(--sidebar-current)' }}>
         <Topbar title={pageTitle(pathname)} role="admin" />
         <div style={{ padding: 26 }}>
           <Outlet />
