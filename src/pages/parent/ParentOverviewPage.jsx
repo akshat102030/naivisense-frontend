@@ -11,10 +11,12 @@ import { TherapyPlanCard } from '../../components/parent/TherapyPlanCard.jsx'
 import { UpcomingSession } from '../../components/parent/UpcomingSession.jsx'
 import { useChild } from '../../hooks/useChild.js'
 import { useMockData } from '../../hooks/useMockData.js'
+import { homePlanByChildId } from '../../data/mockHomePlan.js'
 
 export function ParentOverviewPage() {
   const { selectedChild } = useChild()
   const { progressHistory, behaviorLogs, sessions } = useMockData()
+  const homePlan = homePlanByChildId[selectedChild?.id] ?? homePlanByChildId.c001
   const [messages, setMessages] = useState([
     {
       role: 'ai',
@@ -64,6 +66,32 @@ export function ParentOverviewPage() {
               description="Focus on vocabulary expansion and command following using structured repetition and visual aids."
               confidence={selectedChild?.aiConfidence ?? 91}
             />
+          </Panel>
+          <Panel title="24-Hour Home Plan" action="View full in Therapy Plan">
+            <div style={{ display: 'grid', gap: 8 }}>
+              {homePlan.timeline.slice(0, 3).map((block) => (
+                <div
+                  key={block.block}
+                  style={{
+                    border: '1px solid var(--border)',
+                    borderRadius: 10,
+                    background: 'var(--bg3)',
+                    padding: '10px 12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)' }}>{block.block}</div>
+                    <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700 }}>{block.window}</div>
+                  </div>
+                  <div style={{ marginTop: 6, fontSize: 12, color: 'var(--text2)' }}>
+                    {block.items[0]?.time} - {block.items[0]?.title}
+                  </div>
+                </div>
+              ))}
+              <div style={{ fontSize: 11, color: 'var(--text2)' }}>
+                Includes speech, OT, ABA, sensory play, social practice, and day-wise diet chart.
+              </div>
+            </div>
           </Panel>
           <Panel title="Upcoming Sessions">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
